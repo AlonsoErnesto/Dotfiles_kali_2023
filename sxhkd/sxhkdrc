@@ -54,7 +54,7 @@ ctrl + alt + t
 	sh ~/.config/bspwm/rofi/bin/themes
 
 # Rofi Menus/Applets
-super + {h,m,x,r,z,i}
+super + {h,m,q,r,z,i}
 	sh ~/.config/bspwm/rofi/bin/{windows,mpd,powermenu,asroot,screenshot,network}
 
 ##---------- Applications ----------##
@@ -76,8 +76,10 @@ super + p
 	colorPicker
 
 # Lockscreen
-ctrl + alt + l
-    bsplock
+#ctrl + alt + l
+super + x
+     betterlockscreen -l dimblur
+    #bsplock
 
 # music art
 super + shift + m
@@ -110,8 +112,12 @@ ctrl + alt + Print
 	takeshot --area
 
 # Brighness control
-XF86MonBrightness{Up,Down}
-	brightness{ --inc, --dec}
+#XF86MonBrightness{Up,Down}
+#	brightness{ --inc, --dec}
+XF86MonBrightnessUp
+	xrandr --output eDP-1 --brightness 1
+XF86MonBrightnessDown
+        xrandr --output eDP-1 --brightness 0.7
 	
 # Volume control
 XF86Audio{RaiseVolume,LowerVolume}
