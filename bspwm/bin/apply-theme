@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+##########################################################################################################
+#																										 
+#    Copyright © 2022 To Cyb3rTh1eveZ																	 
+#																										 
+#     ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ ████████╗██╗  ██╗ ██╗███████╗██╗   ██╗███████╗███████╗	 
+#    ██╔════╝╚██╗ ██╔╝██╔══██╗╚════██╗██╔══██╗╚══██╔══╝██║  ██║███║██╔════╝██║   ██║██╔════╝╚══███╔╝     
+#    ██║      ╚████╔╝ ██████╔╝ █████╔╝██████╔╝   ██║   ███████║╚██║█████╗  ██║   ██║█████╗    ███╔╝      
+#    ██║       ╚██╔╝  ██╔══██╗ ╚═══██╗██╔══██╗   ██║   ██╔══██║ ██║██╔══╝  ╚██╗ ██╔╝██╔══╝   ███╔╝       
+#    ╚██████╗   ██║   ██████╔╝██████╔╝██║  ██║   ██║   ██║  ██║ ██║███████╗ ╚████╔╝ ███████╗███████╗     
+#     ╚═════╝   ╚═╝   ╚═════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═╝╚══════╝  ╚═══╝  ╚══════╝╚══════╝     
+#																										 
+#																										 
+#																										 
+#    Copyright (C) Mahmoud Mohamed (00xWolf)  <https://github.com/mmsaeed509>								 
+#    LICENSE © GNU-GPL3																					 
+#																										 
+##########################################################################################################
+
+# paths #
+CFG="$HOME/.config"
+BSP="$HOME/.config/bspwm"
+XRES="$HOME/.Xresources.d"
+
+# Set Style #
+set_style () {
+
+	# ----- launch a custom Polybar if it exists ----- #
+	pkill polybar
+	echo "$7">~/.config/bspwm/selectedThemeName
+
+    # ----- icons for jgmenus ----- #
+    dunstify -i "" "[*] Updating jgmenus icons"
+    echo "$4">~/.config/bspwm/icons
+	
+	# ----- apply color-scheme ----- #
+	dunstify -i "" "[*] Updating color-scheme"
+	cat "$BSP"/themes/${2} > "$XRES"/colors
+	#cat "$BSP"/themes/${2}
+
+	# ----- notify ----- #
+	bash ~/.config/bspwm/notify/notify
+
+	# ----- apply wallpaper ----- #
+	#feh --bg-fill /usr/share/backgrounds/${1}
+	feh --bg-max /home/hardmond/Pictures/wallpaper/15.jpg
+	
+	# ----- set gtk theme, icons and cursor ----- #
+	if [[ `pidof xsettingsd` ]]; then
+		sed -i -e "s|Net/ThemeName .*|Net/ThemeName \"$3\"|g" ${HOME}/.xsettingsd
+		sed -i -e "s|Net/IconThemeName .*|Net/IconThemeName \"$4\"|g" ${HOME}/.xsettingsd
+		sed -i -e "s|Gtk/CursorThemeName .*|Gtk/CursorThemeName \"$5\"|g" ${HOME}/.xsettingsd
+		sed -i -e "s|Inherits=.*|Inherits=$5|g" ${HOME}/.icons/default/index.theme
+	else
+		sed -i -e "s/gtk-theme-name=.*/gtk-theme-name=\"$3\"/g" ${HOME}/.gtkrc-2.0
+		sed -i -e "s/gtk-icon-theme-name=.*/gtk-icon-theme-name=\"$4\"/g" ${HOME}/.gtkrc-2.0
+		sed -i -e "s/gtk-cursor-theme-name=.*/gtk-cursor-theme-name=\"$5\"/g" ${HOME}/.gtkrc-2.0
+		
+		sed -i -e "s/gtk-theme-name=.*/gtk-theme-name=$3/g" ${CFG}/gtk-3.0/settings.ini
+		sed -i -e "s/gtk-icon-theme-name=.*/gtk-icon-theme-name=$4/g" ${CFG}/gtk-3.0/settings.ini
+		sed -i -e "s/gtk-cursor-theme-name=.*/gtk-cursor-theme-name=$5/g" ${CFG}/gtk-3.0/settings.ini
+	fi
+
+	# ----- set background for i3look based on the selected theme ----- #
+#	echo "$1">~/.config/bspwm/i3lockBackground
+
+	# ----- reload config ----- #
+#	pkill polybar
+#	bspc wm -r
+
+	# ----- reload config ----- #
+	bspc wm -r
+
+	# ----- notify ----- #
+	bash ~/.config/bspwm/notify/notify
+}
+
+set_style "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}"
