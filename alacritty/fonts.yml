@@ -1,0 +1,36 @@
+
+# Font configuration
+font:
+  # Normal (roman) font face
+  normal:
+    family: "Victor MOno"
+      #style: Normal
+
+  # Bold font face
+  bold:
+    #    family: "JetBrainsMono Nerd Font"
+    family : "Victor Mono"
+    #style: Normal
+
+  # Italic font face
+  italic:
+    family: "Victor Mono"
+    #style: Normal
+
+  # Bold italic font face
+  bold_italic:
+    family: "Victor Mono"
+    #style: Normal
+
+  # Point size
+  size: 10
+
+  # Offset
+  #offset:
+  #  x: 0
+  #  y: 0
+
+  # Glyph offset
+  #glyph_offset:
+  #  x: 0
+  #  y: 0

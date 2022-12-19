@@ -40,6 +40,7 @@ include-file = ~/.config/bspwm/polybar/Pamela/modules/separatorsModules
 
 [bar/pam1]
 
+
 monitor = 
 monitor-fallback =
 monitor-strict = false
@@ -71,12 +72,13 @@ padding = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = "Iosevka Nerd Font:size=10;3"
-font-1 = "Iosevka Nerd Font:size=12;3"
-font-2 = "google\-mdi:size=12;3"
-font-3 = "Iosevka:style=bold:size=12;3"
+font-0 = "Iosevka Nerd Font:size=12;3"
+font-1 = "Iosevka Nerd Font:size=14;3"
+font-2 = "google\-mdi:size=14;3"
+font-3 = "Iosevka:style=bold:size=16;3"
 font-4 = "Iosevka Nerd Font:size=18;4"
 font-5 = "Iosevka:style=bold:size=18;4"
+font-6 = "Font Awesome 5 Free:size=8;1"
 
 modules-left = 
 modules-center = xdomenu
@@ -126,14 +128,15 @@ padding = 1
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = "Iosevka Nerd Font:size=10;3"
-font-1 = "Iosevka Nerd Font:size=12;3"
+font-0 = "Iosevka Nerd Font:size=12;3"
+# ICONS SIZE POLYBAR
+font-1 = "Iosevka Nerd Font:size=13;3"
 font-2 = "google\-mdi:size=12;3"
 font-3 = "Iosevka:style=bold:size=12;3"
 font-4 = "Iosevka Nerd Font:size=18;4"
 font-5 = "Iosevka:style=bold:size=18;4"
 
-modules-left = title space bspwm
+modules-left = space space space bspwm
 modules-center =
 modules-right = 
 
@@ -187,12 +190,12 @@ font-2 = "google\-mdi:size=12;3"
 font-3 = "Iosevka:style=bold:size=12;3"
 font-4 = "Iosevka Nerd Font:size=18;4"
 font-5 = "Iosevka:style=bold:size=18;4"
-font-6 = "Material Design Icons:style=Bold:size18;4"
+#font-6 = "Material Design Icons:style=Bold:size18;4"
 
-
-modules-left   = volume space cpu space cpuTemp space updates-pacman space notification-github space battery
-modules-center =  
-modules-right  = 
+#cpuTemp - notification-github
+modules-left   = space space space cpu space space updates-pacman
+modules-center =  space volume space
+modules-right  =  space title space space 
 
 separator =
 dim-value = 1.0
@@ -245,9 +248,9 @@ font-3 = "Iosevka:style=bold:size=12;3"
 font-4 = "Iosevka Nerd Font:size=18;4"
 font-5 = "Iosevka:style=bold:size=18;4"
 
-modules-left   = themes space bna space network space mod
-modules-center = 
-modules-right  = 
+modules-left   = space space themes space space space bna
+#modules-center =  mod
+modules-center  = mod xkeyboard space space menu space network space space
 
 separator =
 dim-value = 1.0
@@ -300,9 +303,9 @@ font-3 = "Iosevka:style=bold:size=12;3"
 font-4 = "Iosevka Nerd Font:size=18;4"
 font-5 = "Iosevka:style=bold:size=18;4"
 
-modules-left = sysmenu space date
-modules-center = 
-modules-right = 
+modules-left = space sysmenu
+modules-center = date
+modules-right = battery 
 
 separator =
 dim-value = 1.0
@@ -364,10 +367,13 @@ font-3 = "Iosevka:style=bold:size=12;3"
 font-4 = "Iosevka Nerd Font:size=18;4"
 font-5 = "Iosevka:style=bold:size=18;4"
 
+#modules-left = song  
+#modules-center = info-cava 
+#modules-right = mpd
 
-modules-left = song  
-modules-center = info-cava 
-modules-right = mpd
+modules-left = space space spotify space space space previous space playpause space next
+#modules-center = info-cava
+modules-right = info-cava mpd space space
 
 separator =
 dim-value = 1.0

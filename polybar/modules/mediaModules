@@ -16,35 +16,41 @@
 #																										 
 ##########################################################################################################
 
-
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/volume]
 
 type = internal/pulseaudio
 
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
 sink = alsa_output.pci-0000_12_00.3.analog-stereo
 
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
 use-ui-max = false
 
+; Interval for volume increase/decrease (in percent points)
+; Default: 5
 interval = 5
 
 
-format-volume = <ramp-volume> <label-volume>
-format-volume-background = ${color.BACKGROUND}
+; format-volume = <ramp-volume> <label-volume>
+format-volume =  <bar-volume> <label-volume>
+
+format-volume-foreground = ${color.green}
 
 format-muted = <label-muted>
-format-muted-background = ${color.BACKGROUND}
 format-muted-prefix = 婢
-format-muted-prefix-font = 3
-format-muted-prefix-foreground = #E40D0D
+format-muted-prefix-font = 6
+format-muted-prefix-foreground = ${color.red}
 
 label-volume = %percentage%%
 label-volume-font = 4
-label-volume-foreground = #aa94CF95
+label-volume-foreground = ${color.green}
 label-muted = " Mute"
 muted-label-font = 5
-label-muted-foreground = #E40D0D
+label-muted-foreground = ${color.red}
 
 ramp-volume-0 = 奄
 ramp-volume-1 = 奄
@@ -57,56 +63,94 @@ ramp-volume-7 = 墳
 ramp-volume-8 = 墳
 ramp-volume-9 = 墳
 ramp-volume-font = 3
-ramp-volume-foreground = ${color.BLUE}
+ramp-volume-foreground = ${color.green}
 
 ramp-headphones-0 = 
 ramp-headphones-1 = 
 
 
+; Only applies if <bar-volume> is used
+bar-volume-width = 10
+bar-volume-gradient = false
+
+bar-volume-indicator = 󰮯
+bar-volume-indicator-font = 7
+bar-volume-indicator-foreground = ${color.green}
+
+bar-volume-fill = ━
+bar-volume-fill-font = 7
+bar-volume-foreground-0 = ${color.green}
+bar-volume-foreground-1 = ${color.green}
+bar-volume-foreground-2 = ${color.green}
+bar-volume-foreground-3 = ${color.green}
+bar-volume-foreground-4 = ${color.green}
+
+bar-volume-empty = ━
+bar-volume-empty-font = 7
+bar-volume-empty-foreground = ${color.green}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/mpd]
 type = internal/mpd
 
-host = any
-port = 6600
-;;password = alonso2019
-
 interval = 2
 
-format-online = <label-song> <icon-prev> <toggle> <icon-next>
-format-online-prefix = " "
-format-online-prefix-foreground = ${color.GREEN}
+format-online = <icon-prev> <toggle> <icon-next>
+
+; format-online-background = ${color.mb}
+format-offline-foreground = ${color.grey}
 
 format-playing = ${self.format-online}
-format-paused = <label-song> <toggle>
+format-paused = ${self.format-online}
+format-stopped = ${self.format-online}
 
 format-offline = <label-offline>
-format-offline-prefix = " "
-format-offline-prefix-foreground = ${color.RED}
-label-offline = "Offline"
+format-offline-prefix = " "
+; format-offline-background = ${color.mb}
 
-; label-song =  "%title% | %artist%"
-label-song =  "%title% "
-label-song-maxlen = 40
+label-song =  "%artist% - %title%"
+label-song-maxlen = 25
 label-song-ellipsis = true
+
+label-offline = "Offline"
 
 icon-play = 
 icon-play-font = 2
-icon-play-foreground = ${color.GREEN}
+icon-play-foreground = ${color.lime}
 icon-pause = 
 icon-pause-font = 2
-icon-pause-foreground = #989cff
+icon-pause-foreground = ${color.lime}
 icon-stop = 
-icon-stop-foreground = ${color.RED}
+icon-stop-foreground = ${color.lime}
 icon-prev = 玲
-icon-prev-font = 2
-icon-prev-foreground = ${color.CYAN}
+icon-prev-font = 1
+icon-prev-foreground = ${color.blue}
 icon-next = 怜
-icon-next-font = 2
-icon-next-foreground = ${color.CYAN}
+icon-next-font = 1
+icon-next-foreground = ${color.blue}
 
+;;-----------
+
+[module/song]
+type = internal/mpd
+
+interval = 2
+
+format-online = "[ <icon-repeat> <label-song> ]"
+format-online-foreground = ${color.pink}
+
+format-playing = ${self.format-online}
+format-paused = ${self.format-online}
+format-stopped = ${self.format-online}
+
+label-song =  "%title% - %artist%"
+label-song-foreground = ${color.cyan}
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+icon-repeat = ""
+icon-repeat-foreground = #FF0677
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -116,8 +160,8 @@ exec =  ~/.config/bspwm/polybar/scripts/cava
 
 format = <label>
 label = %output%
-format-foreground = #9d00ff
-format-background = ${color.BGL}
+#format-foreground = ${color.purplea}
+ format-foreground = #91EAE4
 tail = true
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -130,3 +174,51 @@ tail = true
 click-left = ~/.config/bspwm/polybar/scripts/pipewire-microphone.sh --toggle &
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+;; SPORIFY
+
+[module/previous]
+type = custom/ipc
+format-font = 2
+; Default
+hook-0 = echo ""
+; When spotify active
+hook-1 = echo ""
+click-left = "spotifyctl -q previous"
+
+
+[module/next]
+type = custom/ipc
+format-font = 2
+; Default
+hook-0 = echo ""
+; When spotify active
+hook-1 = echo ""
+click-left = "spotifyctl -q next"
+
+
+[module/playpause]
+type = custom/ipc
+format-font = 2
+; Default
+hook-0 = echo ""
+; Playing
+hook-1 = echo ""
+; Paused
+hook-2 = echo ""
+click-left = "spotifyctl -q playpause"
+
+
+[module/spotify]
+type = custom/ipc
+; Default
+hook-0 = echo ""
+; %artist% - %title%
+
+format-online = "[ <icon-repeat> <label-song> ]"
+format-online-foreground = ${color.pink}
+format-font = 4
+hook-1 = spotifyctl -q status --format '  %artist%'
+#label-spotify="%title% - %artist%"
+#hook-spotify-maxlen=25
+#hook-spotify-ellipsis=true

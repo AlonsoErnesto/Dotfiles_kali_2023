@@ -21,7 +21,7 @@
 [module/bna]
 type = custom/text
 
-content = " NON"
+content = " 85%"
 content-foreground = ${color.pink}
 
 content-prefix = 
@@ -202,6 +202,18 @@ label-disconnected-foreground = ${color.purple}
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/network]
+ type = custom/script
+ exec = ~/.config/bspwm/polybar/Pamela/modules/check-network
+ format-background = #05080
+ format-foreground = #AAF0C1
+ format-padding = 1
+ format-font = 2
+ click-right = ~/.config/polybar/scripts/date.sh &
+ click-left = nmtui
+ tail = true
+
+
+[module/network2]
 type = internal/network
 interface = ${system.network_interface}
 
@@ -244,7 +256,7 @@ blacklist-0 = num lock
 label-layout = %layout%
 label-layout-foreground = ${colors.primary}
 label-layout-font = 4
-label-layout-background = #0C1018
+label-layout-background = #0C10180
 
 # label-indicator-padding = 2
 # label-indicator-margin = 1
@@ -279,13 +291,13 @@ label-font = 4
 [module/menu]
 type = custom/text
 
-; content = ""
+ content = ""
 ; content = ""
 ; content = ""
-content = ""
-content-font = 5
+; content = ""
+; content-font = 5
 
-;content-font = 3
+content-font = 3
 content-foreground = ${color.blue}
 content-padding = 0
 ; content-background = #0C1018
@@ -297,8 +309,9 @@ click-left = ~/.config/bspwm/rofi/bin/launcher
 type = custom/text
 interval = 1
 
-content = ""
-content-font = 5
+#content = ""
+ content = ""
+content-font = 6
 content-foreground = ${color.blue}
 content-padding = 0
 click-left = jgmenu_run
@@ -325,9 +338,9 @@ format = [<label>]
 format-foreground = ${color.blue}
 
 label = "%title%"
-label-maxlen = 6
+label-maxlen = 10
 
-label-empty = "Exodia"
+label-empty = "Pamela"
 label-empty-foreground = ${color.blue}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
