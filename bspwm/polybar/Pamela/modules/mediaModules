@@ -42,7 +42,7 @@ format-volume-foreground = ${color.green}
 
 format-muted = <label-muted>
 format-muted-prefix = 婢
-format-muted-prefix-font = 3
+format-muted-prefix-font = 6
 format-muted-prefix-foreground = ${color.red}
 
 label-volume = %percentage%%
@@ -160,7 +160,8 @@ exec =  ~/.config/bspwm/polybar/scripts/cava
 
 format = <label>
 label = %output%
-format-foreground = ${color.purple}
+#format-foreground = ${color.purplea}
+ format-foreground = #91EAE4
 tail = true
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -173,3 +174,51 @@ tail = true
 click-left = ~/.config/bspwm/polybar/scripts/pipewire-microphone.sh --toggle &
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+;; SPORIFY
+
+[module/previous]
+type = custom/ipc
+format-font = 2
+; Default
+hook-0 = echo ""
+; When spotify active
+hook-1 = echo ""
+click-left = "spotifyctl -q previous"
+
+
+[module/next]
+type = custom/ipc
+format-font = 2
+; Default
+hook-0 = echo ""
+; When spotify active
+hook-1 = echo ""
+click-left = "spotifyctl -q next"
+
+
+[module/playpause]
+type = custom/ipc
+format-font = 2
+; Default
+hook-0 = echo ""
+; Playing
+hook-1 = echo ""
+; Paused
+hook-2 = echo ""
+click-left = "spotifyctl -q playpause"
+
+
+[module/spotify]
+type = custom/ipc
+; Default
+hook-0 = echo ""
+; %artist% - %title%
+
+format-online = "[ <icon-repeat> <label-song> ]"
+format-online-foreground = ${color.pink}
+format-font = 4
+hook-1 = spotifyctl -q status --format '  %artist%'
+#label-spotify="%title% - %artist%"
+#hook-spotify-maxlen=25
+#hook-spotify-ellipsis=true
